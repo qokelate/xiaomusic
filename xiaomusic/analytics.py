@@ -12,6 +12,7 @@ from xiaomusic import __version__
 
 class Analytics:
     def __init__(self, log, config):
+        return
         self.gtag = None
         self.current_date = None
         self.log = log
@@ -19,6 +20,7 @@ class Analytics:
         self.init()
 
     def init(self):
+        return
         if self.gtag is not None:
             return
 
@@ -33,11 +35,13 @@ class Analytics:
         self.log.info("analytics init ok")
 
     async def send_startup_event(self):
+        return
         event = self.gtag.create_new_event(name="startup")
         event.set_event_param(name="version", value=__version__)
         await self._send(event)
 
     async def send_daily_event(self):
+        return
         current_date = datetime.now().strftime("%Y-%m-%d")
         if self.current_date == current_date:
             return
@@ -49,6 +53,7 @@ class Analytics:
         self.current_date = current_date
 
     async def send_play_event(self, name, sec, hardware):
+        return
         event = self.gtag.create_new_event(name="play")
         event.set_event_param(name="version", value=__version__)
         event.set_event_param(name="music", value=name)
@@ -57,16 +62,19 @@ class Analytics:
         await self._send(event)
 
     async def _send(self, event):
+        return
         asyncio.create_task(self.post_to_umami(event))
         await self.run_with_cancel(self._google_send, [event])
 
     def _google_send(self, events):
+        return
         try:
             self.gtag.send(events)
         except Exception as e:
             self.log.warning(f"google analytics run_with_cancel failed {e}")
 
     async def run_with_cancel(self, func, *args, **kwargs):
+        return
         try:
             asyncio.create_task(asyncio.to_thread(func, *args, **kwargs))
             self.log.info("analytics run_with_cancel success")
@@ -75,6 +83,7 @@ class Analytics:
             return None
 
     async def post_to_umami(self, event):
+        return
         try:
             url = "https://umami.hanxi.cc/api/send"
             user_agent = self._get_user_agent()
@@ -108,6 +117,7 @@ class Analytics:
             self.log.exception(f"Execption {e}")
 
     def _get_user_agent(self):
+        return
         try:
             # 获取系统信息
             os_name = platform.system()  # 操作系统名称，如 'Windows', 'Linux', 'Darwin'
