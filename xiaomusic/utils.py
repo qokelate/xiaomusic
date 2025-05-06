@@ -933,6 +933,8 @@ async def download_playlist(config, url, dirname):
         title,
         "--ffmpeg-location",
         f"{config.ffmpeg_location}",
+        "--cookies-from-browser", "chrome",
+        "--user-agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
     )
 
     if config.proxy:
@@ -971,6 +973,8 @@ async def download_one_music(config, url, name=""):
         title,
         "--ffmpeg-location",
         f"{config.ffmpeg_location}",
+        "--cookies-from-browser", "chrome",
+        "--user-agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
     )
 
     if config.proxy:
